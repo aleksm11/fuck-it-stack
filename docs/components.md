@@ -2,6 +2,26 @@
 
 Web Components. For real this time. No polyfills, no compiler, no framework-specific component model. Just the [Custom Elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements) spec with a thin base class.
 
+## Auto-Registration
+
+You don't need to manually import components in `index.html`. The dev server auto-discovers component directories and generates a `components.js` barrel file.
+
+Just follow the convention:
+
+```
+components/{tag-name}/
+  {tag-name}.js     # Component class
+  {tag-name}.html   # Shadow DOM template
+  {tag-name}.css    # Scoped styles (optional)
+```
+
+**Rules:**
+- The tag name **must contain a hyphen** (this is a web component spec requirement — e.g., `nav-bar`, `search-input`, `product-card`)
+- The directory name must match the tag name
+- The `.js` file must exist (`.html` and `.css` are loaded at runtime by FISElement)
+
+When you create a new component folder, the dev server detects it and regenerates `components.js` automatically. No restart, no manual imports. See [Dev Server — Auto File Watcher](dev-server.md#auto-file-watcher) for details.
+
 ## FISElement
 
 Every component extends `FISElement`, which extends `HTMLElement`. It handles:

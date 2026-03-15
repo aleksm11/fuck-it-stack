@@ -208,7 +208,9 @@ const CSS = `
     background: var(--bg-deep);
     color: var(--text);
     line-height: 1.75;
+    font-size: 16px;
     -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
     overflow-x: hidden;
   }
 
@@ -416,7 +418,7 @@ const CSS = `
   }
 
   .content {
-    max-width: var(--max-content);
+    max-width: 720px;
     margin: 0 auto;
     padding: 3rem 3rem 5rem;
   }
@@ -597,17 +599,41 @@ const CSS = `
     font-size: 1.1rem;
   }
 
+  /* Overlay to close sidebar on mobile */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 99;
+  }
+  .sidebar-overlay.active { display: block; }
+
   @media (max-width: 768px) {
     .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
     .sidebar.open { transform: translateX(0); box-shadow: 10px 0 40px rgba(0,0,0,0.7); }
     .mobile-header { display: flex; }
     .main { margin-left: 0; padding-top: 56px; }
-    .content { padding: 1.5rem 1.25rem 3rem; }
+    .content { padding: 2rem 1.25rem 3rem; }
     h1 { font-size: 1.8rem; }
     h2 { font-size: 1.25rem; }
+    .code-block { border-radius: 8px; padding: 1rem; }
+    .code-block code { font-size: 0.85rem; }
+    .sidebar-nav a { min-height: 44px; padding: 0.65rem 0.75rem; }
     .prev-next { flex-direction: column; }
-    .prev-next a { max-width: 100%; }
+    .prev-next a { max-width: 100%; min-height: 44px; }
     .prev-next .next { text-align: left; }
+    .table-wrap { -webkit-overflow-scrolling: touch; }
+  }
+
+  @media (max-width: 480px) {
+    .content { padding: 1.5rem 1rem 2.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; margin: 2rem 0 0.75rem; }
+    h3 { font-size: 1.05rem; }
+    .code-block { padding: 0.85rem; margin: 0.75rem 0 1.25rem; }
+    .code-block code { font-size: 0.8rem; }
+    .sidebar-footer { padding: 0.75rem 1rem; }
   }
 
   /* Scrollbar */
@@ -681,10 +707,19 @@ const SEARCH_SCRIPT = (searchIndex) => `
   // Mobile nav toggle
   const toggle = document.getElementById('mobile-toggle');
   const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
   if (toggle && sidebar) {
-    toggle.addEventListener('click', () => sidebar.classList.toggle('open'));
-    // Close on link click
-    sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', () => sidebar.classList.remove('open')));
+    function toggleNav() {
+      sidebar.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('active', sidebar.classList.contains('open'));
+    }
+    function closeNav() {
+      sidebar.classList.remove('open');
+      if (overlay) overlay.classList.remove('active');
+    }
+    toggle.addEventListener('click', toggleNav);
+    if (overlay) overlay.addEventListener('click', closeNav);
+    sidebar.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
   }
 `;
 
@@ -708,6 +743,7 @@ const TEMPLATE = (title, nav, content, prevNext, searchIndex, hasLogo) => `<!DOC
     <span class="mobile-logo">FIS</span>
   </div>
 
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">

@@ -82,22 +82,13 @@ input {
 }
 ```
 
-**4. Register it in `index.html`:**
-
-```html
-<script type="module">
-  import '/components/hello-world/hello-world.js';
-  // ...other imports
-</script>
-```
-
-**5. Use it in any page:**
+**4. Use it in any page:**
 
 ```html
 <hello-world></hello-world>
 ```
 
-That's a reactive component with scoped styles. No build step. No JSX. The browser does the work.
+That's a reactive component with scoped styles. No build step. No JSX. No manual imports. The dev server auto-discovers your component and generates a `components.js` barrel file — the browser does the rest.
 
 ## Run the Dev Server
 
@@ -121,15 +112,15 @@ Edit any file in `pages/`, `components/`, `state/`, or `styles/` — the browser
 <p>Built with the Fuck It Stack.</p>
 ```
 
-**2. Regenerate routes:**
+If the dev server is running, routes are regenerated automatically when `pages/` changes. No manual commands needed.
+
+To regenerate routes manually (without the dev server):
 
 ```bash
 node lib/generate.js
 ```
 
 This scans `pages/` and writes `routes.js`, `sitemap.xml`, and `robots.txt`.
-
-If the dev server is running, it auto-regenerates routes when `pages/` changes. No restart needed.
 
 **3. Navigate to `/about`** — your page is live.
 

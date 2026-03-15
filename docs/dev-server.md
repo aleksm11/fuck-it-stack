@@ -72,6 +72,50 @@ The server handles all the usual suspects:
 
 Everything else gets `application/octet-stream`.
 
+## Auto File Watcher
+
+The dev server watches your project directories and automatically responds to changes — no manual commands needed.
+
+### How It Works
+
+`createWatcher(config)` sets up a single recursive file watcher on the project root, routing events by directory:
+
+- **`components/`** — runs component auto-registration, then reloads
+- **`pages/`** — regenerates routes, then reloads
+- **`styles/`** and **`state/`** — triggers a reload
+
+All watchers use **debounced handlers** — rapid file changes (e.g., saving multiple files in quick succession) are collapsed into a single rebuild. The default debounce is 100ms.
+
+### Component Auto-Discovery
+
+`scanComponents(dir)` scans the `components/` directory for valid web component subdirectories:
+
+1. Finds directories containing a hyphen (required by the Custom Elements spec)
+2. Checks for a matching `.js` file inside (e.g., `nav-bar/nav-bar.js`)
+3. Returns the list of discovered components
+
+`generateComponentsModule(components)` takes that list and generates a `components.js` barrel file with side-effect imports:
+
+```js
+// Auto-generated — do not edit
+import './components/nav-bar/nav-bar.js';
+import './components/search-bar/search-bar.js';
+import './components/site-footer/site-footer.js';
+```
+
+**Zero manual commands:** create a new component folder with the right structure → the dev server detects it, regenerates `components.js`, and reloads the browser. Your component is registered and ready to use.
+
+### Directory Change Routing
+
+`handleDirChange(dirType, handlers)` routes each directory type to the right handler(s):
+
+| Directory | Action |
+|---|---|
+| `components/` | Regenerate `components.js` → reload |
+| `pages/` | Regenerate `routes.js` → reload |
+| `styles/` | Reload only |
+| `state/` | Reload only |
+
 ## What It Doesn't Do
 
 - **No HMR.** Full reload on every change. It's fast enough. Your app has zero bundle overhead.
