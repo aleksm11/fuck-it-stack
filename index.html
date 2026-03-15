@@ -9,13 +9,8 @@
 </head>
 <body>
   <div id="app"></div>
+  <script type="module" src="/components.js"></script>
   <script type="module">
-    // Import and register all components
-    import '/components/nav-bar/nav-bar.js';
-    import '/components/product-card/product-card.js';
-    import '/components/cart-item/cart-item.js';
-    import '/components/site-footer/site-footer.js';
-
     // Import router and routes
     import { initRouter } from '/lib/router.js';
     import routes from '/routes.js';
