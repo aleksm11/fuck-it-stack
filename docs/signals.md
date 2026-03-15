@@ -12,7 +12,7 @@ Create a reactive signal from any value — primitives, objects, arrays, Maps, S
 import { signal } from '/lib/signal.js';
 
 const count = signal(0);
-const user = signal({ name: 'Jakša', role: 'admin' });
+const user = signal({ name: 'Alex', role: 'admin' });
 const tags = signal(new Set(['js', 'css']));
 const cache = signal(new Map());
 ```
@@ -29,7 +29,7 @@ count.set(1);  // Triggers all observers watching count
 `.get()` registers the signal as a dependency when called inside `observe()` or `computed()`. This is how auto-tracking works.
 
 ```js
-user.set({ name: 'Jakša', role: 'superadmin' });
+user.set({ name: 'Alex', role: 'superadmin' });
 // Replaces the entire value and notifies observers
 ```
 
@@ -50,11 +50,11 @@ observe(() => {
 Signals support nested property access. Each nested path creates a child signal node.
 
 ```js
-const user = signal({ name: 'Jakša', address: { city: 'Belgrade' } });
+const user = signal({ name: 'Alex', address: { city: 'Portland' } });
 
 // Access nested properties — returns a signal-like proxy
-user.name.get();           // 'Jakša'
-user.address.city.get();   // 'Belgrade'
+user.name.get();           // 'Alex'
+user.address.city.get();   // 'Portland'
 
 // Set nested properties
 user.name.set('Marko');    // Notifies user AND user.name observers
@@ -150,10 +150,10 @@ observe(() => {
 });
 
 batch(() => {
-  firstName.set('Jakša');
-  lastName.set('Mališić');
+  firstName.set('Alex');
+  lastName.set('Rivera');
 });
-// Observer fires once: "Jakša Mališić"
+// Observer fires once: "Alex Rivera"
 ```
 
 Batches can nest. The queue flushes only when the outermost batch completes.

@@ -70,7 +70,7 @@ Plain selector → sets `textContent`:
 ```js
 data() {
   return {
-    '.username': user.name.get(),       // <span class="username">Jakša</span>
+    '.username': user.name.get(),       // <span class="username">Alex</span>
     '.count': String(items.get().length), // <span class="count">5</span>
   };
 }
