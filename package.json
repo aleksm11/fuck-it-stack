@@ -1,0 +1,15 @@
+{
+  "name": "fuck-it-stack",
+  "version": "0.1.0",
+  "description": "Zero-dependency web framework. Fuck it, just use the platform.",
+  "type": "module",
+  "scripts": {
+    "dev": "node lib/dev.js",
+    "generate": "node lib/generate.js",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "vitest": "^3.0"
+  },
+  "license": "MIT"
+}
