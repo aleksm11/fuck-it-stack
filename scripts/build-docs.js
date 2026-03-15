@@ -122,6 +122,7 @@ const NAV = [
   { file: 'persistence.md', title: 'Persistence', icon: '💾' },
   { file: 'css.md', title: 'CSS Architecture', icon: '🎨' },
   { file: 'dev-server.md', title: 'Dev Server', icon: '🔧' },
+  { file: 'plugins.md', title: 'Plugins', icon: '🔌' },
   { file: 'ai-workflow.md', title: 'AI Workflow', icon: '🤖' },
 ];
 
