@@ -1,5 +1,7 @@
 # ⚡ Fuck It Stack
 
+> **[Live Demo](https://aleksm11.github.io/fuck-it-stack/)** · **[Documentation](https://aleksm11.github.io/fuck-it-stack/docs/getting-started.html)**
+
 **Zero dependencies. ~350 lines of framework. Just use the platform.**
 
 FIS is the anti-framework web framework. No build step. No node_modules. No virtual DOM. No JSX. No transpilation. Just Web Components, vanilla CSS, Proxy-based signals, and file-based routing — all built on web standards that already exist.
@@ -16,7 +18,7 @@ Bundle size:     0 KB (it's just your code)
 ## Quick Start
 
 ```bash
-git clone https://github.com/jaksm/fuck-it-stack my-app
+git clone https://github.com/aleksm11/fuck-it-stack my-app
 cd my-app
 node lib/generate.js    # Generate routes from pages/
 node lib/dev.js          # Start dev server with live reload
