@@ -1,0 +1,19 @@
+<h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-6);">All Products</h1>
+<div id="products-grid" class="grid grid-products"></div>
+
+<script type="module">
+  import { products } from '/state/store.js';
+
+  const grid = document.getElementById('products-grid');
+  const items = products.peek();
+
+  for (const p of items) {
+    const card = document.createElement('product-card');
+    card.setAttribute('product-id', p.id);
+    card.setAttribute('name', p.name);
+    card.setAttribute('price', String(p.price));
+    card.setAttribute('image', p.image);
+    card.setAttribute('description', p.description);
+    grid.appendChild(card);
+  }
+</script>

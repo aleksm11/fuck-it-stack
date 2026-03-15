@@ -1,0 +1,17 @@
+footer {
+  margin-top: auto;
+  padding: var(--space-8) var(--space-6);
+  text-align: center;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}

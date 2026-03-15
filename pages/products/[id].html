@@ -1,0 +1,43 @@
+<div id="product-detail"></div>
+
+<script type="module">
+  import { products } from '/state/store.js';
+  import { addToCart } from '/state/store.js';
+
+  const outlet = document.getElementById('app');
+  const params = JSON.parse(outlet?.dataset?.routeParams || '{}');
+  const product = products.peek().find(p => p.id === params.id);
+  const container = document.getElementById('product-detail');
+
+  if (!product) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: var(--space-16) 0;">
+        <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-4);">Product Not Found</h1>
+        <p style="color: var(--color-muted); margin-bottom: var(--space-6);">The product you're looking for doesn't exist.</p>
+        <a href="/products" style="color: var(--color-primary);">← Back to Products</a>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `
+      <a href="/products" style="color: var(--color-muted); display: inline-block; margin-bottom: var(--space-6);">← Back to Products</a>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: start;">
+        <div style="font-size: 8rem; text-align: center; padding: var(--space-16) 0; background: var(--color-surface); border-radius: var(--radius); border: 1px solid var(--color-border);">
+          ${product.image}
+        </div>
+        <div>
+          <h1 style="font-size: var(--text-3xl); margin-bottom: var(--space-4);">${product.name}</h1>
+          <p style="color: var(--color-muted); font-size: var(--text-lg); margin-bottom: var(--space-6);">${product.description}</p>
+          <p style="font-size: var(--text-3xl); font-weight: 700; color: var(--color-primary); margin-bottom: var(--space-8);">$${product.price.toFixed(2)}</p>
+          <button id="add-to-cart-btn" style="background: var(--color-primary); color: white; border: none; border-radius: var(--radius); padding: var(--space-3) var(--space-8); font-size: var(--text-lg); font-weight: 500; cursor: pointer;">Add to Cart</button>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+      addToCart(product.id);
+      const btn = document.getElementById('add-to-cart-btn');
+      btn.textContent = '✓ Added!';
+      setTimeout(() => { btn.textContent = 'Add to Cart'; }, 1500);
+    });
+  }
+</script>

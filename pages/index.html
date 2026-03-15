@@ -1,0 +1,27 @@
+<section class="hero" style="text-align: center; padding: var(--space-16) 0 var(--space-12);">
+  <h1 style="font-size: var(--text-4xl); margin-bottom: var(--space-4);">⚡ FIS Store</h1>
+  <p style="color: var(--color-muted); font-size: var(--text-lg); max-width: 500px; margin: 0 auto var(--space-8);">
+    The demo store for <strong>Fuck It Stack</strong> — a zero-dependency web framework. Signals, components, routing, persistence. Nothing else.
+  </p>
+  <a href="/products" class="btn-primary" style="display: inline-block; text-decoration: none; border-radius: var(--radius); padding: var(--space-3) var(--space-8); background: var(--color-primary); color: white; font-weight: 500;">Browse Products</a>
+</section>
+
+<h2 style="font-size: var(--text-2xl); margin-bottom: var(--space-6);">Featured Products</h2>
+<div id="featured-grid" class="grid grid-products"></div>
+
+<script type="module">
+  import { products } from '/state/store.js';
+
+  const grid = document.getElementById('featured-grid');
+  const items = products.peek().slice(0, 3);
+
+  for (const p of items) {
+    const card = document.createElement('product-card');
+    card.setAttribute('product-id', p.id);
+    card.setAttribute('name', p.name);
+    card.setAttribute('price', String(p.price));
+    card.setAttribute('image', p.image);
+    card.setAttribute('description', p.description);
+    grid.appendChild(card);
+  }
+</script>
