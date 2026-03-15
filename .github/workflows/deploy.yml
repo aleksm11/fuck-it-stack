@@ -23,8 +23,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
       - name: Generate routes
         run: node lib/generate.js
+
+      - name: Build documentation
+        run: node scripts/build-docs.js
+
+      - name: Prepare deploy directory
+        run: |
+          mkdir -p _site
+          # Copy everything except _site, node_modules, .git, tests
+          rsync -a --exclude='_site' --exclude='node_modules' --exclude='.git' --exclude='*.test.js' --exclude='scripts/' --exclude='docs/' --exclude='vitest.config.js' --exclude='package.json' --exclude='package-lock.json' . _site/
+          # Copy built docs
+          cp -r docs-dist _site/docs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -32,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment

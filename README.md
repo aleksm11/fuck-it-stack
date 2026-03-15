@@ -1,6 +1,6 @@
 # ⚡ Fuck It Stack
 
-> **[Live Demo](https://jaksm.github.io/fuck-it-stack/)** · **[Documentation](https://jaksm.github.io/fuck-it-stack/docs/getting-started.html)**
+> **[Live Demo](https://aleksm11.github.io/fuck-it-stack/)** · **[Documentation](https://aleksm11.github.io/fuck-it-stack/docs/)**
 
 **Zero dependencies. ~350 lines of framework. Just use the platform.**
 
