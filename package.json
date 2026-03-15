@@ -9,6 +9,7 @@
     "test": "vitest"
   },
   "devDependencies": {
+    "happy-dom": "^20.8.4",
     "vitest": "^3.0"
   },
   "license": "MIT"
